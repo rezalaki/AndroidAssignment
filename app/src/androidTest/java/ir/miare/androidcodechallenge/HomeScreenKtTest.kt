@@ -7,13 +7,13 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import ir.miare.androidcodechallenge.data.model.FakeData
+import ir.miare.androidcodechallenge.data.model.base.FakeData
 import ir.miare.androidcodechallenge.data.model.FakeDataFlatted
-import ir.miare.androidcodechallenge.data.model.League
-import ir.miare.androidcodechallenge.data.model.Player
-import ir.miare.androidcodechallenge.data.model.Team
-import ir.miare.androidcodechallenge.data.model.toFakeDataFlatted
-import ir.miare.androidcodechallenge.data.model.toFakeDataSortedBy
+import ir.miare.androidcodechallenge.data.model.base.League
+import ir.miare.androidcodechallenge.data.model.base.Player
+import ir.miare.androidcodechallenge.data.model.base.Team
+import ir.miare.androidcodechallenge.data.model.base.toFakeDataFlatted
+import ir.miare.androidcodechallenge.data.model.base.toFakeDataSortedBy
 import ir.miare.androidcodechallenge.ui.homescreen.ResultListBox
 import ir.miare.androidcodechallenge.ui.homescreen.SortingBox
 import ir.miare.androidcodechallenge.ui.homescreen.viewmodel.SortTypes
@@ -222,6 +222,7 @@ class HomeScreenKtTest {
         val isPremierLeagueFirst = when (resultFinalList.first()) {
             is FakeDataFlatted.LeagueFlatted -> (resultFinalList.first() as FakeDataFlatted.LeagueFlatted).league.name == "Premier League"
             is FakeDataFlatted.PlayerFlatted -> false
+            is FakeDataFlatted.TeamFlatted -> false
         }
         assert(isPremierLeagueFirst)
 

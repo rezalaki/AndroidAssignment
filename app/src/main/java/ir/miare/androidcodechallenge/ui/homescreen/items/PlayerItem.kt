@@ -16,12 +16,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import ir.miare.androidcodechallenge.data.model.Player
+import ir.miare.androidcodechallenge.data.model.base.Player
 import ir.miare.androidcodechallenge.ui.theme.Typography
 
 
 @Composable
-fun PlayerItem(player: Player, onClicked: (Player) -> Unit) {
+fun PlayerItem(
+    index: Int,
+    player: Player,
+    showTeamName: Boolean,
+    onClicked: (Player) -> Unit
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -32,7 +37,7 @@ fun PlayerItem(player: Player, onClicked: (Player) -> Unit) {
         Text(
             modifier = Modifier.fillMaxWidth(0.09F),
             textAlign = TextAlign.Center,
-            text = player.index.toString(),
+            text = index.toString(),
             style = Typography.h3
         )
         Column(
@@ -43,12 +48,14 @@ fun PlayerItem(player: Player, onClicked: (Player) -> Unit) {
                 textAlign = TextAlign.Center,
                 style = Typography.h3
             )
-            Divider(thickness = 4.dp, color = Color.Transparent)
-            Text(
-                text = player.team.name,
-                textAlign = TextAlign.Center,
-                style = Typography.h5
-            )
+            if (showTeamName) {
+                Divider(thickness = 4.dp, color = Color.Transparent)
+                Text(
+                    text = player.team.name,
+                    textAlign = TextAlign.Center,
+                    style = Typography.h5
+                )
+            }
         }
     }
 }
@@ -57,7 +64,7 @@ fun PlayerItem(player: Player, onClicked: (Player) -> Unit) {
 @Preview(showBackground = true)
 @Composable
 private fun PlayerItemPreview() {
-    PlayerItem(player = Player.generateFakePlayer()) {
+    PlayerItem(1, player = Player.generateFakePlayer(), showTeamName = true) {
 
     }
 }

@@ -1,4 +1,4 @@
-package ir.miare.androidcodechallenge.data.model
+package ir.miare.androidcodechallenge.data.model.base
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
@@ -8,9 +8,6 @@ data class League(
     @JsonProperty("rank") val rank: Int,
     @JsonProperty("total_matches") val totalMatches: Int,
 ) {
-    val fakeId: Int
-        get() = (1_000..9_999).random()
-
     fun getTitleAndCountry() = "$name - $country"
 
     companion object {

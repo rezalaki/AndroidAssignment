@@ -1,8 +1,7 @@
 package ir.miare.androidcodechallenge.data.repository
 
 import ir.miare.androidcodechallenge.data.api.ApiService
-import ir.miare.androidcodechallenge.data.model.FakeData
-import ir.miare.androidcodechallenge.data.repository.FakeDataRepository
+import ir.miare.androidcodechallenge.data.model.base.FakeData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject

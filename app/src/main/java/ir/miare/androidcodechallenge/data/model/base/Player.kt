@@ -1,4 +1,4 @@
-package ir.miare.androidcodechallenge.data.model
+package ir.miare.androidcodechallenge.data.model.base
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import java.io.Serializable
@@ -9,10 +9,8 @@ data class Player(
     @JsonProperty("total_goal") val totalGoal: Int
 ) : Serializable {
 
-    val fakeId: Int
-        get() = (10_000..99_999).random()
-
-    var index: Int = 0
+    /** unique id, to use in LazyColumn as Key */
+    val fakeId: Int = (totalGoal * 10) + team.rank
 
     companion object {
         /**
