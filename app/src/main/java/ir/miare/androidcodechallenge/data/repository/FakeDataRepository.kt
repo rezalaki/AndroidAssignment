@@ -1,6 +1,6 @@
 package ir.miare.androidcodechallenge.data.repository
 
-import ir.miare.androidcodechallenge.data.model.base.FakeData
+import ir.miare.androidcodechallenge.data.model.response.FakeData
 import kotlinx.coroutines.flow.Flow
 
 

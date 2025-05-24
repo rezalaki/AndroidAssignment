@@ -1,7 +1,6 @@
 package ir.miare.androidcodechallenge.ui.homescreen.items
 
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,8 +15,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import ir.miare.androidcodechallenge.data.model.base.Player
+import ir.miare.androidcodechallenge.data.model.response.Player
 import ir.miare.androidcodechallenge.ui.theme.Typography
+import ir.miare.androidcodechallenge.utils.clickableIf
 
 
 @Composable
@@ -25,13 +25,15 @@ fun PlayerItem(
     index: Int,
     player: Player,
     showTeamName: Boolean,
-    onClicked: (Player) -> Unit
+    onClicked: ((Player) -> Unit)?
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .height(68.dp)
-            .clickable { onClicked.invoke(player) },
+            .clickableIf(onClicked != null) {
+                onClicked!!.invoke(player)
+            },
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(

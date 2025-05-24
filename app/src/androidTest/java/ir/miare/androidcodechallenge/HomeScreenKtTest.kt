@@ -7,13 +7,13 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import ir.miare.androidcodechallenge.data.model.base.FakeData
 import ir.miare.androidcodechallenge.data.model.FakeDataFlatted
-import ir.miare.androidcodechallenge.data.model.base.League
-import ir.miare.androidcodechallenge.data.model.base.Player
-import ir.miare.androidcodechallenge.data.model.base.Team
-import ir.miare.androidcodechallenge.data.model.base.toFakeDataFlatted
-import ir.miare.androidcodechallenge.data.model.base.toFakeDataSortedBy
+import ir.miare.androidcodechallenge.data.model.response.FakeData
+import ir.miare.androidcodechallenge.data.model.response.League
+import ir.miare.androidcodechallenge.data.model.response.Player
+import ir.miare.androidcodechallenge.data.model.response.Team
+import ir.miare.androidcodechallenge.data.model.toFakeDataFlatted
+import ir.miare.androidcodechallenge.data.model.toSortByType
 import ir.miare.androidcodechallenge.ui.homescreen.ResultListBox
 import ir.miare.androidcodechallenge.ui.homescreen.SortingBox
 import ir.miare.androidcodechallenge.ui.homescreen.viewmodel.SortTypes
@@ -195,36 +195,37 @@ class HomeScreenKtTest {
     )
 
     @Test
-    fun is_premier_league_first_when_most_goals_radio_btn_click() {
+    fun is_seri_A_Italy_first_when_most_goals_radio_btn_click() {
         val resultFinalList = mutableListOf<FakeDataFlatted>()
         composeTestRule.setContent {
+            val type = remember {
+                mutableStateOf(SortTypes.NONE)
+            }
             Column {
-                val type = remember {
-                    mutableStateOf(SortTypes.MOST_GOAL)
-                }
                 SortingBox(sortTypesList = SortTypes.entries) {
                     type.value = it
                 }
-                val sortedFlattedList = fakeDataList
-                    .toFakeDataSortedBy(type.value)
-                    .toFakeDataFlatted()
+                val sortedFlattedList = remember(type.value) {
+                    fakeDataList
+                        .toSortByType(type.value)
+                        .toFakeDataFlatted()
+                }
                 resultFinalList.add(sortedFlattedList.first())
-                ResultListBox(dataList = sortedFlattedList) {
+                ResultListBox(dataList = sortedFlattedList, sortType = type.value) {
                 }
             }
         }
-        Thread.sleep(1000)
+        Thread.sleep(2000)
         composeTestRule
             .onNodeWithText(SortTypes.MOST_GOAL.title)
             .performClick()
-        Thread.sleep(1000)
+        Thread.sleep(2000)
 
-        val isPremierLeagueFirst = when (resultFinalList.first()) {
-            is FakeDataFlatted.LeagueFlatted -> (resultFinalList.first() as FakeDataFlatted.LeagueFlatted).league.name == "Premier League"
+        val isSerieAItalyLeagueFirst = when (resultFinalList.first()) {
+            is FakeDataFlatted.LeagueFlatted -> (resultFinalList.first() as FakeDataFlatted.LeagueFlatted).league.name == "Serie A"
             is FakeDataFlatted.PlayerFlatted -> false
-            is FakeDataFlatted.TeamFlatted -> false
         }
-        assert(isPremierLeagueFirst)
+        assert(isSerieAItalyLeagueFirst)
 
         Thread.sleep(2000)
     }
@@ -232,7 +233,7 @@ class HomeScreenKtTest {
     @Test
     fun result_list_box_is_serie_A_Italy_displayed() {
         composeTestRule.setContent {
-            ResultListBox(dataList = flattenList) {
+            ResultListBox(dataList = flattenList, sortType = SortTypes.NONE) {
 
             }
         }

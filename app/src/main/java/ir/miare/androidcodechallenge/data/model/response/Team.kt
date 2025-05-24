@@ -1,4 +1,4 @@
-package ir.miare.androidcodechallenge.data.model.base
+package ir.miare.androidcodechallenge.data.model.response
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import java.io.Serializable
@@ -9,6 +9,8 @@ data class Team(
 ) : Serializable {
 
     companion object {
+
+        /**  generate fake Team for preview composable   */
         fun generateFakeTeam(): Team =
             Team(
                 name = "fake team name",

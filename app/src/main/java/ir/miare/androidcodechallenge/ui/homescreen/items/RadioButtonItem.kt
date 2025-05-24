@@ -35,7 +35,10 @@ fun RadioButtonItem(
                     .padding(horizontal = 8.dp, vertical = 4.dp)
                     .selectable(
                         selected = (singleOption == selectedSort),
-                        onClick = { onRadioClicked.invoke(singleOption) },
+                        onClick = {
+                            if (singleOption != selectedSort)
+                                onRadioClicked.invoke(singleOption)
+                        },
                         role = Role.RadioButton
                     ), verticalAlignment = Alignment.CenterVertically
             ) {

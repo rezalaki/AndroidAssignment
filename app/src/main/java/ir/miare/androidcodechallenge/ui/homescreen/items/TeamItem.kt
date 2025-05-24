@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import ir.miare.androidcodechallenge.data.model.base.Team
+import ir.miare.androidcodechallenge.data.model.response.Team
 import ir.miare.androidcodechallenge.ui.theme.Typography
 
 
